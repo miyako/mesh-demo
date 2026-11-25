@@ -18,7 +18,8 @@ headless self-test. Everything else is the component doing the work.
 
 ## Quick start
 
-1. Open `Project/mesh-demo.4DProject` with **4D 20 R6 or later** (developed on 21 R5).
+1. Open `Project/mesh-demo.4DProject` with **4D 21** (built and tested on 21 R5; the
+   project declares `compatibilityVersion` 2101).
 2. 4D's Dependency manager reads `Project/Sources/dependencies.json` and fetches
    `miyako/mesh` `20.0.2` from its GitHub release, installing `Components/mesh.4dbase`.
 3. Run the project. The form opens with the three bundled fixtures; press **Render** or
