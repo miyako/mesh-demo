@@ -1,0 +1,65 @@
+/* Mesh Thumbnail Studio -- dark "asset viewer" theme.
+   Property names are 4D form-object properties, not web CSS. */
+
+.hero {
+	fontSize: 24;
+	fontWeight: bold;
+	stroke: #F3F6FB;
+}
+
+.subtitle {
+	fontSize: 12;
+	stroke: #94A3B8;
+}
+
+.badge {
+	fontSize: 12;
+	fontWeight: bold;
+	stroke: #7DB2FF;
+	textAlign: right;
+}
+
+.card {
+	fill: #161C26;
+	borderStyle: solid;
+	stroke: #253044;
+	borderRadius: 10;
+}
+
+.well {
+	fill: #0A0D12;
+	borderStyle: solid;
+	stroke: #1E2838;
+	borderRadius: 6;
+}
+
+.cardTitle {
+	fontSize: 10;
+	fontWeight: bold;
+	stroke: #8FA6C4;
+}
+
+.label {
+	fontSize: 12;
+	stroke: #AAB6C8;
+}
+
+.dim {
+	fontSize: 11;
+	stroke: #7E8CA1;
+}
+
+.mono {
+	fontSize: 11;
+	fontFamily: "Menlo";
+	stroke: #A8E6C9;
+}
+
+.status {
+	fontSize: 11;
+	stroke: #F2C879;
+}
+
+.viewBtn {
+	fontSize: 12;
+}

@@ -1,0 +1,570 @@
+{
+  "$4d": {
+    "version": "1",
+    "kind": "form"
+  },
+  "name": "Studio",
+  "windowTitle": "Mesh Thumbnail Studio",
+  "width": 1000,
+  "height": 700,
+  "windowMinWidth": 1000,
+  "windowMinHeight": 700,
+  "windowMaxWidth": 1000,
+  "windowMaxHeight": 900,
+  "windowSizingX": "fixed",
+  "windowSizingY": "fixed",
+  "rightMargin": 28,
+  "bottomMargin": 32,
+  "destination": "detailScreen",
+  "formClass": "StudioForm",
+  "method": "method.4dm",
+  "events": [
+    "onLoad"
+  ],
+  "pages": [
+    {
+      "objects": {}
+    },
+    {
+      "objects": {
+        "bg": {
+          "type": "rectangle",
+          "left": 0,
+          "top": 0,
+          "width": 1000,
+          "height": 700,
+          "fill": "#0F1218",
+          "borderStyle": "none"
+        },
+        "title": {
+          "type": "text",
+          "left": 28,
+          "top": 16,
+          "width": 640,
+          "height": 34,
+          "text": "Mesh Thumbnail Studio",
+          "class": "hero"
+        },
+        "subtitle": {
+          "type": "text",
+          "left": 28,
+          "top": 52,
+          "width": 780,
+          "height": 18,
+          "text": "STL / PLY in, deterministic PNG out. Interactive demo for the miyako/mesh 4D component.",
+          "class": "subtitle"
+        },
+        "version": {
+          "type": "input",
+          "left": 700,
+          "top": 22,
+          "width": 272,
+          "height": 20,
+          "dataSource": "Form.versionText",
+          "dataSourceTypeHint": "text",
+          "enterable": false,
+          "borderStyle": "none",
+          "class": "badge"
+        },
+        "cardSource": {
+          "type": "rectangle",
+          "left": 28,
+          "top": 88,
+          "width": 300,
+          "height": 152,
+          "class": "card"
+        },
+        "titleSource": {
+          "type": "text",
+          "left": 44,
+          "top": 100,
+          "width": 268,
+          "height": 16,
+          "text": "SOURCE GEOMETRY",
+          "class": "cardTitle"
+        },
+        "filePick": {
+          "type": "dropdown",
+          "left": 44,
+          "top": 122,
+          "width": 268,
+          "height": 26,
+          "dataSource": "Form.fileList",
+          "dataSourceTypeHint": "object",
+          "method": "ObjectMethods/filePick.4dm",
+          "events": [
+            "onDataChange"
+          ]
+        },
+        "fileMeta": {
+          "type": "input",
+          "left": 44,
+          "top": 154,
+          "width": 268,
+          "height": 46,
+          "dataSource": "Form.fileMeta",
+          "dataSourceTypeHint": "text",
+          "multiline": "yes",
+          "enterable": false,
+          "borderStyle": "none",
+          "class": "dim"
+        },
+        "reloadBtn": {
+          "type": "button",
+          "left": 44,
+          "top": 206,
+          "width": 140,
+          "height": 26,
+          "text": "Rescan fixtures",
+          "style": "flat",
+          "method": "ObjectMethods/reloadBtn.4dm",
+          "events": [
+            "onClick"
+          ]
+        },
+        "cardOptions": {
+          "type": "rectangle",
+          "left": 28,
+          "top": 252,
+          "width": 300,
+          "height": 300,
+          "class": "card"
+        },
+        "titleOptions": {
+          "type": "text",
+          "left": 44,
+          "top": 264,
+          "width": 268,
+          "height": 16,
+          "text": "RENDER OPTIONS",
+          "class": "cardTitle"
+        },
+        "viewLabel": {
+          "type": "text",
+          "left": 44,
+          "top": 292,
+          "width": 90,
+          "height": 20,
+          "text": "View",
+          "class": "label"
+        },
+        "viewPick": {
+          "type": "dropdown",
+          "left": 140,
+          "top": 289,
+          "width": 172,
+          "height": 26,
+          "dataSource": "Form.view",
+          "choiceList": [
+            "iso",
+            "top",
+            "front",
+            "side"
+          ],
+          "saveAs": "value",
+          "method": "ObjectMethods/viewPick.4dm",
+          "events": [
+            "onDataChange"
+          ]
+        },
+        "sizeLabel": {
+          "type": "text",
+          "left": 44,
+          "top": 328,
+          "width": 90,
+          "height": 20,
+          "text": "Size (px)",
+          "class": "label"
+        },
+        "sizeInput": {
+          "type": "input",
+          "left": 140,
+          "top": 325,
+          "width": 88,
+          "height": 25,
+          "dataSource": "Form.size",
+          "dataSourceTypeHint": "integer",
+          "textAlign": "right",
+          "method": "ObjectMethods/sizeInput.4dm",
+          "events": [
+            "onDataChange"
+          ]
+        },
+        "sizeStep": {
+          "type": "stepper",
+          "left": 238,
+          "top": 323,
+          "width": 16,
+          "height": 36,
+          "dataSource": "Form.size",
+          "dataSourceTypeHint": "integer",
+          "min": 64,
+          "max": 1024,
+          "step": 64,
+          "method": "ObjectMethods/sizeStep.4dm",
+          "events": [
+            "onDataChange"
+          ]
+        },
+        "qualityLabel": {
+          "type": "text",
+          "left": 44,
+          "top": 376,
+          "width": 90,
+          "height": 20,
+          "text": "Quality",
+          "class": "label"
+        },
+        "qualityInput": {
+          "type": "input",
+          "left": 140,
+          "top": 373,
+          "width": 88,
+          "height": 25,
+          "dataSource": "Form.quality",
+          "dataSourceTypeHint": "integer",
+          "textAlign": "right",
+          "method": "ObjectMethods/qualityInput.4dm",
+          "events": [
+            "onDataChange"
+          ]
+        },
+        "qualityStep": {
+          "type": "stepper",
+          "left": 238,
+          "top": 371,
+          "width": 16,
+          "height": 36,
+          "dataSource": "Form.quality",
+          "dataSourceTypeHint": "integer",
+          "min": 1,
+          "max": 8,
+          "step": 1,
+          "method": "ObjectMethods/qualityStep.4dm",
+          "events": [
+            "onDataChange"
+          ]
+        },
+        "bgLabel": {
+          "type": "text",
+          "left": 44,
+          "top": 424,
+          "width": 90,
+          "height": 20,
+          "text": "Background",
+          "class": "label"
+        },
+        "bgPick": {
+          "type": "dropdown",
+          "left": 140,
+          "top": 421,
+          "width": 172,
+          "height": 26,
+          "dataSource": "Form.background",
+          "choiceList": [
+            "#20242B",
+            "#FFFFFF",
+            "#0A0D12",
+            "transparent"
+          ],
+          "saveAs": "value",
+          "method": "ObjectMethods/bgPick.4dm",
+          "events": [
+            "onDataChange"
+          ]
+        },
+        "renderBtn": {
+          "type": "button",
+          "left": 44,
+          "top": 470,
+          "width": 146,
+          "height": 32,
+          "text": "Render",
+          "style": "regular",
+          "defaultButton": true,
+          "method": "ObjectMethods/renderBtn.4dm",
+          "events": [
+            "onClick"
+          ]
+        },
+        "resetBtn": {
+          "type": "button",
+          "left": 198,
+          "top": 470,
+          "width": 114,
+          "height": 32,
+          "text": "Reset",
+          "style": "flat",
+          "method": "ObjectMethods/resetBtn.4dm",
+          "events": [
+            "onClick"
+          ]
+        },
+        "cardFail": {
+          "type": "rectangle",
+          "left": 28,
+          "top": 564,
+          "width": 300,
+          "height": 106,
+          "class": "card"
+        },
+        "titleFail": {
+          "type": "text",
+          "left": 44,
+          "top": 574,
+          "width": 268,
+          "height": 16,
+          "text": "FAILURE SHOWCASE",
+          "class": "cardTitle"
+        },
+        "errBtn": {
+          "type": "button",
+          "left": 44,
+          "top": 594,
+          "width": 180,
+          "height": 26,
+          "text": "Render a corrupt STL",
+          "style": "flat",
+          "method": "ObjectMethods/errBtn.4dm",
+          "events": [
+            "onClick"
+          ]
+        },
+        "status": {
+          "type": "input",
+          "left": 44,
+          "top": 624,
+          "width": 268,
+          "height": 42,
+          "dataSource": "Form.status",
+          "dataSourceTypeHint": "text",
+          "multiline": "yes",
+          "enterable": false,
+          "borderStyle": "none",
+          "class": "status"
+        },
+        "cardPreview": {
+          "type": "rectangle",
+          "left": 344,
+          "top": 88,
+          "width": 340,
+          "height": 372,
+          "class": "card"
+        },
+        "titlePreview": {
+          "type": "text",
+          "left": 360,
+          "top": 100,
+          "width": 308,
+          "height": 16,
+          "text": "PREVIEW",
+          "class": "cardTitle"
+        },
+        "previewWell": {
+          "type": "rectangle",
+          "left": 360,
+          "top": 122,
+          "width": 308,
+          "height": 300,
+          "class": "well"
+        },
+        "preview": {
+          "type": "input",
+          "left": 360,
+          "top": 122,
+          "width": 308,
+          "height": 300,
+          "dataSource": "Form.preview",
+          "dataSourceTypeHint": "picture",
+          "pictureFormat": "proportionalCenter",
+          "enterable": false,
+          "borderStyle": "none"
+        },
+        "stats": {
+          "type": "input",
+          "left": 360,
+          "top": 430,
+          "width": 308,
+          "height": 18,
+          "dataSource": "Form.stats",
+          "dataSourceTypeHint": "text",
+          "enterable": false,
+          "borderStyle": "none",
+          "class": "dim"
+        },
+        "viewIso": {
+          "type": "button",
+          "left": 360,
+          "top": 474,
+          "width": 74,
+          "height": 28,
+          "text": "Iso",
+          "style": "flat",
+          "method": "ObjectMethods/viewIso.4dm",
+          "events": [
+            "onClick"
+          ]
+        },
+        "viewTop": {
+          "type": "button",
+          "left": 440,
+          "top": 474,
+          "width": 74,
+          "height": 28,
+          "text": "Top",
+          "style": "flat",
+          "method": "ObjectMethods/viewTop.4dm",
+          "events": [
+            "onClick"
+          ]
+        },
+        "viewFront": {
+          "type": "button",
+          "left": 520,
+          "top": 474,
+          "width": 74,
+          "height": 28,
+          "text": "Front",
+          "style": "flat",
+          "method": "ObjectMethods/viewFront.4dm",
+          "events": [
+            "onClick"
+          ]
+        },
+        "viewSide": {
+          "type": "button",
+          "left": 600,
+          "top": 474,
+          "width": 74,
+          "height": 28,
+          "text": "Side",
+          "style": "flat",
+          "method": "ObjectMethods/viewSide.4dm",
+          "events": [
+            "onClick"
+          ]
+        },
+        "cardGeometry": {
+          "type": "rectangle",
+          "left": 344,
+          "top": 514,
+          "width": 340,
+          "height": 156,
+          "class": "card"
+        },
+        "titleGeometry": {
+          "type": "text",
+          "left": 360,
+          "top": 524,
+          "width": 308,
+          "height": 16,
+          "text": "GEOMETRY · inspect()",
+          "class": "cardTitle"
+        },
+        "geometry": {
+          "type": "input",
+          "left": 360,
+          "top": 544,
+          "width": 308,
+          "height": 116,
+          "dataSource": "Form.geometryText",
+          "dataSourceTypeHint": "text",
+          "multiline": "yes",
+          "enterable": false,
+          "borderStyle": "none",
+          "class": "mono"
+        },
+        "cardComponent": {
+          "type": "rectangle",
+          "left": 700,
+          "top": 88,
+          "width": 272,
+          "height": 196,
+          "class": "card"
+        },
+        "titleComponent": {
+          "type": "text",
+          "left": 716,
+          "top": 100,
+          "width": 240,
+          "height": 16,
+          "text": "COMPONENT · capabilities()",
+          "class": "cardTitle"
+        },
+        "caps": {
+          "type": "input",
+          "left": 716,
+          "top": 122,
+          "width": 240,
+          "height": 152,
+          "dataSource": "Form.capabilitiesText",
+          "dataSourceTypeHint": "text",
+          "multiline": "yes",
+          "enterable": false,
+          "borderStyle": "none",
+          "class": "mono"
+        },
+        "cardHow": {
+          "type": "rectangle",
+          "left": 700,
+          "top": 300,
+          "width": 272,
+          "height": 196,
+          "class": "card"
+        },
+        "titleHow": {
+          "type": "text",
+          "left": 716,
+          "top": 312,
+          "width": 240,
+          "height": 16,
+          "text": "WHAT IS HAPPENING",
+          "class": "cardTitle"
+        },
+        "how": {
+          "type": "input",
+          "left": 716,
+          "top": 334,
+          "width": 240,
+          "height": 150,
+          "dataSource": "Form.howText",
+          "dataSourceTypeHint": "text",
+          "multiline": "yes",
+          "enterable": false,
+          "borderStyle": "none",
+          "class": "dim"
+        },
+        "cardTry": {
+          "type": "rectangle",
+          "left": 700,
+          "top": 512,
+          "width": 272,
+          "height": 158,
+          "class": "card"
+        },
+        "titleTry": {
+          "type": "text",
+          "left": 716,
+          "top": 524,
+          "width": 240,
+          "height": 16,
+          "text": "TRY THIS",
+          "class": "cardTitle"
+        },
+        "try": {
+          "type": "input",
+          "left": 716,
+          "top": 546,
+          "width": 240,
+          "height": 112,
+          "dataSource": "Form.tryText",
+          "dataSourceTypeHint": "text",
+          "multiline": "yes",
+          "enterable": false,
+          "borderStyle": "none",
+          "class": "dim"
+        }
+      }
+    }
+  ]
+}

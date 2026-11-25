@@ -1,0 +1,6 @@
+{
+  "version": 2100,
+  "dependencies": {
+    "mesh": {"github": "miyako/mesh", "tag": "20.0.2"}
+  }
+}
