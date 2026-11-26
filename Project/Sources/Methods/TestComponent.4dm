@@ -112,6 +112,16 @@ $checks.push(demoCheck("setView(top) re-renders"; ($form.view="top") && (Positio
 $form.demoError()
 $checks.push(demoCheck("demoError shows invalid_stl"; (Position("invalid_stl"; $form.status)>0); $form.status))
 
+$form.demoError()
+$checks.push(demoCheck("demoError alternates to unsupported_format"; (Position("not_a_mesh.bin"; $form.status)>0) && (Position("unsupported_format"; $form.status)>0); $form.status))
+
+$form.size:=5000
+$form.quality:=0
+$form.render()
+$checks.push(demoCheck("render clamps typed size/quality"; ($form.size=1024) && ($form.quality=1) && (Position("No PNG"; $form.stats)=0); String($form.size)+" / "+String($form.quality)))
+
+$checks.push(demoCheck("fileMeta describes the selected fixture"; (Position("bytes"; $form.fileMeta)>0); $form.fileMeta))
+
 $form.reset()
 $checks.push(demoCheck("reset restores defaults"; ($form.size=256) && ($form.quality=2) && ($form.view="iso"); String($form.size)))
 

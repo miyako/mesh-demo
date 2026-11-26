@@ -17,6 +17,7 @@ property versionText : Text
 property stats : Text
 property howText : Text
 property tryText : Text
+property failureIndex : Integer
 
 Class constructor
 	This.fileList:=New object("values"; New collection(); "index"; 0; "currentValue"; "")
@@ -30,6 +31,7 @@ Class constructor
 	This.capabilitiesText:=""
 	This.versionText:=""
 	This.stats:=""
+	This.failureIndex:=0
 	This.howText:="StudioForm.init() creates cs.MeshPreview.Thumbnailer, then renders on every option change. The component launches the mesh-thumb binary bundled in its own Resources/bin folder through 4D.SystemWorker, parses the JSON envelope (schema_version 1) and hands back a picture plus geometry stats. No native plug-in, no helper process left behind."
 	This.tryText:="1. Use the Iso / Top / Front / Side buttons.\n2. Push size to 512 and quality to 4.\n3. Pick ring_ascii.ply: a point cloud, not a mesh.\n4. Choose the transparent background.\n5. Render the corrupt STL and read the error envelope."
 
@@ -85,7 +87,9 @@ Function render()
 		This.status:="Pick a geometry file first."
 		return 
 	End if 
+	This.clampOptions()
 	$input:=Folder("/RESOURCES/fixtures").file($name)
+	This.fileMeta:=This.describeFile($input)
 	$output:=This.outputFile($name+".png")
 	$options:=New object("size"; This.size; "view"; This.view; "background"; This.background; "quality"; This.quality)
 	$started:=Milliseconds
@@ -101,6 +105,18 @@ Function render()
 		This.stats:="No PNG written"
 		This.status:=This.describeError($result)
 	End if 
+
+Function clampOptions()
+	// The steppers clamp, but typed values bypass them: keep the same ranges (64-1024, 1-8).
+	This.size:=Choose(This.size<64; 64; Choose(This.size>1024; 1024; This.size))
+	This.quality:=Choose(This.quality<1; 1; Choose(This.quality>8; 8; This.quality))
+	If ((This.background#"transparent") && Not(Match regex("^#[0-9A-Fa-f]{6}$"; This.background; 1)))
+		This.background:="#20242B"
+	End if 
+
+Function describeFile($file : 4D.File)->$text : Text
+	$text:=$file.fullName+"\n"+String($file.size)+" bytes"
+	return $text
 
 Function inspectGeometry($input : 4D.File)
 	var $result : Object
@@ -134,11 +150,11 @@ Function describeRender($result : Object; $elapsed)->$text : Text
 	return $text
 
 Function describeError($result : Object)->$text : Text
-	$text:="render() failed as designed.\ncode: "+String($result.error.code)
-	$text:=$text+"\nmessage: "+String($result.error.message)
-	If (String($result.error.stage)#"")
-		$text:=$text+"\nstage: "+String($result.error.stage)
+	$text:="code: "+String($result.error.code)
+	If (($result.error.stage#Null) && (String($result.error.stage)#""))
+		$text:=$text+"  ·  stage: "+String($result.error.stage)
 	End if 
+	$text:=$text+"\n"+String($result.error.message)
 	return $text
 
 Function pointText($p : Collection)->$text : Text
@@ -183,16 +199,26 @@ Function setView($view : Text)
 	This.render()
 
 Function demoError()
+	// Alternates between the two deliberately broken files on every click.
 	var $input : 4D.File
 	var $output : 4D.File
 	var $result : Object
-	$input:=Folder("/RESOURCES/broken").file("truncated.stl")
+	var $name : Text
+	This.clampOptions()
+	If (This.failureIndex=1)
+		$name:="not_a_mesh.bin"
+		This.failureIndex:=0
+	Else 
+		$name:="truncated.stl"
+		This.failureIndex:=1
+	End if 
+	$input:=Folder("/RESOURCES/broken").file($name)
 	$output:=This.outputFile("error-demo.png")
 	$result:=This.tool.render($input; $output; {size: This.size; view: This.view; background: This.background; quality: This.quality})
 	If ($result.ok)
-		This.status:="Unexpected success -- the corrupt fixture parsed."
+		This.status:="Unexpected success -- "+$name+" parsed."
 	Else 
-		This.status:=This.describeError($result)
+		This.status:=$name+"\n"+This.describeError($result)
 	End if 
 
 Function reset()

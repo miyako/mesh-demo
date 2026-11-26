@@ -35,7 +35,7 @@ mv Project/Sources/dependencies.json /tmp/dep.bak   # tool4d cannot resolve GitH
 mv /tmp/dep.bak Project/Sources/dependencies.json
 ```
 
-Expect `PASS 43 checks` on stdout plus a JSON report. The component must be installed at
+Expect `PASS 46 checks` on stdout plus a JSON report. The component must be installed at
 `Components/mesh.4dbase`; the Dependency manager installs it when the project is opened
 in the 4D IDE.
 

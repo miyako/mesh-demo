@@ -7,6 +7,8 @@ second; break it on purpose and read the structured error.
 
 ![The Mesh Thumbnail Studio form](docs/studio-preview.png)
 
+*Static layout preview (`fourdform`): bound fields show their `Form.*` names, not live values.*
+
 | Cube, iso | Ring point cloud, top | Triangle, front |
 | --- | --- | --- |
 | ![cube iso](docs/renders/cube-iso.png) | ![ring top](docs/renders/ring-top.png) | ![triangle front](docs/renders/tri-front.png) |
@@ -37,13 +39,14 @@ No dependency network? Install the component by hand instead: download `mesh.zip
   index is 0-based and `currentValue` is derived, not settable.
 - **View buttons** — four buttons call the same `setView()` the dropdown does; the
   picture updates from the same temporary-file render path.
-- **Size / quality steppers** — clamped 64–1024 and 1–8. The component itself validates
+- **Size / quality steppers** — clamped 64–1024 and 1–8 (typed values are clamped to the
+  same ranges before rendering). The component itself validates
   quality range; sizes above 8192 are rejected by the CLI (`resource_limit_exceeded`),
   which the demo surfaces verbatim.
 - **Background picker** — `#RRGGBB` or `transparent`, proving the option is passed
   through untouched.
-- **Failure showcase** — renders `Resources/broken/truncated.stl` and
-  `Resources/broken/not_a_mesh.bin` and prints the structured error envelope
+- **Failure showcase** — each click alternates between `Resources/broken/truncated.stl`
+  and `Resources/broken/not_a_mesh.bin` and prints the structured error envelope
   (`code`, `message`, `stage`); the last good preview is kept on screen.
 - **Geometry card** — `inspect()` gives vertices/triangles/colours/normals and bounds
   without rendering, so the form can describe what it is about to draw.
@@ -79,7 +82,7 @@ the host side.
 | `Project/Sources/Forms/Studio/form.4DForm` | 1000×700 static-layout form, `formClass: "StudioForm"`, `onLoad` only. |
 | `Project/Sources/Forms/Studio/ObjectMethods/*.4dm` | 15 handlers, each calling `Form.render()`, `Form.setView()`, `Form.reset()` or `Form.demoError()`. |
 | `Project/Sources/Methods/Start.4dm` | Menu bar, window, `DIALOG("Studio")`. Reuses an existing window when the startup method runs twice. |
-| `Project/Sources/Methods/TestComponent.4dm` | Headless self-test: 43 assertions over the component and the form class. |
+| `Project/Sources/Methods/TestComponent.4dm` | Headless self-test: 46 assertions over the component and the form class. |
 | `Project/Sources/styleSheets.css` | Dark studio palette used by the cards, badges, wells and mono text. |
 | `Resources/fixtures`, `Resources/broken` | Three valid meshes (ASCII STL, PLY point cloud, binary STL) and two deliberate failures. |
 
@@ -101,7 +104,7 @@ mv Project/Sources/dependencies.json /tmp/dependencies.json.bak
 mv /tmp/dependencies.json.bak Project/Sources/dependencies.json
 ```
 
-Success prints `PASS 43 checks` on stdout and writes a JSON report with every check,
+Success prints `PASS 46 checks` on stdout and writes a JSON report with every check,
 its detail string, and the binary target. The same run is a template for CI.
 
 ## Validation used while building this
@@ -125,7 +128,7 @@ tools/4dlsp/tool4d-lsp-stdio check-syntax --workspace Project/ --json
 
 Every use of `cs.MeshPreview.Thumbnailer` is reported as
 `The class cs.MeshPreview is unknown` plus `function or property ... does not exist`.
-The component is installed correctly: the same methods run, compile and pass 43 checks
+The component is installed correctly: the same methods run, compile and pass 46 checks
 under `tool4d`. The language server resolves classes from the workspace/project sources,
 not from `Components/*.4dbase`, so component API calls are static-analysis blind spots.
 Treat these diagnostics as expected noise, and prove the API at runtime instead.

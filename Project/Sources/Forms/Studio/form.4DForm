@@ -127,7 +127,7 @@
           "left": 28,
           "top": 252,
           "width": 300,
-          "height": 300,
+          "height": 262,
           "class": "card"
         },
         "titleOptions": {
@@ -303,15 +303,15 @@
         "cardFail": {
           "type": "rectangle",
           "left": 28,
-          "top": 564,
+          "top": 526,
           "width": 300,
-          "height": 106,
+          "height": 144,
           "class": "card"
         },
         "titleFail": {
           "type": "text",
           "left": 44,
-          "top": 574,
+          "top": 536,
           "width": 268,
           "height": 16,
           "text": "FAILURE SHOWCASE",
@@ -320,10 +320,10 @@
         "errBtn": {
           "type": "button",
           "left": 44,
-          "top": 594,
+          "top": 558,
           "width": 180,
           "height": 26,
-          "text": "Render a corrupt STL",
+          "text": "Render a corrupt file",
           "style": "flat",
           "method": "ObjectMethods/errBtn.4dm",
           "events": [
@@ -333,9 +333,9 @@
         "status": {
           "type": "input",
           "left": 44,
-          "top": 624,
+          "top": 590,
           "width": 268,
-          "height": 42,
+          "height": 76,
           "dataSource": "Form.status",
           "dataSourceTypeHint": "text",
           "multiline": "yes",
