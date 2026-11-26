@@ -33,7 +33,7 @@ Class constructor
 	This.stats:=""
 	This.failureIndex:=0
 	This.howText:="StudioForm.init() creates cs.MeshPreview.Thumbnailer, then renders on every option change. The component launches the mesh-thumb binary bundled in its own Resources/bin folder through 4D.SystemWorker, parses the JSON envelope (schema_version 1) and hands back a picture plus geometry stats. No native plug-in, no helper process left behind."
-	This.tryText:="1. Use the Iso / Top / Front / Side buttons.\n2. Push size to 512 and quality to 4.\n3. Pick ring_ascii.ply: a point cloud, not a mesh.\n4. Choose the transparent background.\n5. Render the corrupt STL and read the error envelope."
+	This.tryText:="1. Use the Iso / Top / Front / Side buttons.\n2. Push size to 512 and quality to 4.\n3. Pick ring_ascii.ply: a point cloud, not a mesh.\n4. Choose the transparent background.\n5. Click Render a corrupt file twice and read both error envelopes."
 
 Function init()
 	var $target : Text
@@ -143,10 +143,10 @@ Function describeGeometry($value : Object)->$text : Text
 	return $text
 
 Function describeRender($result : Object; $elapsed)->$text : Text
-	$text:=String($result.value.width)+" x "+String($result.value.height)+" PNG"
-	$text:=$text+"  ·  "+String($result.value.geometry.triangles)+" triangles"
-	$text:=$text+"  ·  cache "+String($result.value.cache)
-	$text:=$text+"  ·  process "+String($elapsed)+" ms"
+	$text:=String($result.value.width)+"x"+String($result.value.height)+" PNG"
+	$text:=$text+" · "+String($result.value.geometry.triangles)+" tris"
+	$text:=$text+" · cache "+String($result.value.cache)
+	$text:=$text+" · "+String($elapsed)+" ms"
 	return $text
 
 Function describeError($result : Object)->$text : Text

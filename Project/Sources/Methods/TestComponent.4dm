@@ -11,12 +11,13 @@
 var $checks : Collection
 var $ok : Boolean
 var $reportPath : Text
+var $unused : Real
 var $target : Text
 var $tool : cs.MeshPreview.Thumbnailer
 
 $checks:=New collection()
 $ok:=True
-Get database parameter(User param value; $reportPath)
+$unused:=Get database parameter(User param value; $reportPath)
 
 $target:="macOS-universal"
 If (Is Windows)
